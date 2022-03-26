@@ -1,12 +1,3 @@
-<?php
-require_once('classes/DB.php');
-require_once('classes/EmployeeList.php');
-
-
-$employeeList = new EmployeeList();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +11,10 @@ $employeeList = new EmployeeList();
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
 <section class="container py-2 mb-4">
     <div class="row">
         <div class="col-lg-12">
@@ -33,22 +24,7 @@ $employeeList = new EmployeeList();
                     <th>Keresztnév</th>
                 </tr>
                 </thead>
-                <tbody>
-                <?php
-
-                $employees = $employeeList->selectEmployeesData();
-
-                foreach ($employees as $x => $value) {
-                    ?>
-
-                    <tr>
-                        <td class="table-primary"><?php echo htmlentities($value['first_name']); ?>
-                        </td>
-                    </tr>
-
-                    <?php
-                }
-                ?>
+                <tbody id="my-table">
                 </tbody>
             </table>
         </div>

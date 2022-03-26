@@ -7,7 +7,7 @@
 class EmployeeList extends DB
 
 {
-    //------------- dolgozói adatok lekérdezése -------------
+    //------------- dolgozói adatok lekérdezés -------------
     public function selectEmployeesData() {
 
         //------------- adatbázishoz kapcsolódás -------------

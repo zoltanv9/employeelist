@@ -1,18 +1,18 @@
 <?php
 
-    require_once('classes/DB.php');
-    require_once('classes/EmployeeList.php');
+    require_once('../classes/DB.php');
+    require_once('../classes/EmployeeList.php');
 
+    //------------- dolgozói lista példányosítása ----------
     $employeeList = new EmployeeList();
 
-    $employees = $employeeList->selectEmployeesData();
+    //------------- request típus elmentése -------------
+    $req = $_REQUEST['req'];
 
-    foreach ($employees as $x => $value) {
-    ?>
-        <tr>
-            <td class="table-primary"><?php echo htmlentities($value['first_name']); ?>
-            </td>
-        </tr>
-<?php
+    //------------- dolgozói adatok lekérdezés, ha request = "select"-----------
+    if ($req == "select") {
+        $employees = $employeeList->selectEmployeesData();
+
+        echo json_encode($employees);
     }
-    ?>
+
