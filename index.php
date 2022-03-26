@@ -15,21 +15,21 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<section class="container py-2 mb-4">
-    <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-hover" style="font-size:large">
-                <thead class="thead-dark">
-                <tr>
-                    <th>Keresztnév</th>
-                </tr>
-                </thead>
-                <tbody id="my-table">
-                </tbody>
-            </table>
+    <section class="container py-2 mb-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover" style="font-size:large">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Keresztnév</th>
+                    </tr>
+                    </thead>
+                    <tbody id="my-table">
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 </body>
 </html>
