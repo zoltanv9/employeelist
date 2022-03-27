@@ -26,12 +26,28 @@
                         <td class="table-success orderingClass" fieldType="emp_no">No.</td>
                         <td class="table-success orderingClass" fieldType="last_name">Családnév</td>
                         <td class="table-success orderingClass" fieldType="first_name">Keresztnév</td>
-                        <td class="table-success orderingClass" fieldType="birth_date">Születési dátum</td>
+                        <td class="table-success">Születési dátum</td>
+                        <td class="table-success">Munka kezdete</td>
                         <td class="table-success">Nem</td>
                         <td class="table-success orderingClass" fieldType="title">Beosztas</td>
-                        <td class="table-success orderingClass" fieldType="salary">Fizetés</td>
+                        <td class="table-success">Fizetés</td>
                         <td class="table-success orderingClass" fieldType="dept_name">Osztály</td>
+                        <td class="table-success orderingClass" fieldType="to_date">Dátum</td>
                         <td class="table-success">Gombok</td>
+                    </tr>
+                    <tr class="show-row">
+                        <td class="table-light"></td>
+                        <td class="table-light editingClass" fieldType="last_name" contenteditable="true">filter...</td>
+                        <td class="table-light editingClass" fieldType="first_name" contenteditable="true">filter...</td>
+                        <td class="table-light"></td>
+                        <td class="table-light"></td>
+                        <td class="table-light"></td>
+                        <td class="table-light  editingClass" fieldType="title" contenteditable="true">filter...</td>
+                        <td class="table-light"></td>
+                        <td class="table-light editingClass" fieldType="dept_name" contenteditable="true">filter...</td>
+                        <td class="table-light editingClass" fieldType="dept_name" contenteditable="true">filter...</td>
+                        <td class="table-light"></td>
+
                     </tr>
                     </thead>
                     <tbody id="my-table">

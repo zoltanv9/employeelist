@@ -58,14 +58,16 @@ function renderEmployeeDataRows(data) {
         $('#my-table')
             .append(`
                     <tr>
-                        <td class="emp_no table-secondary">${value.emp_no}</td>                        
-                        <td class="last_name table-light editable" contenteditable="true" fieldName="last_name" employeeId="${value.emp_no}">${value.last_name}</td>
-                        <td class="first_name table-light editable" contenteditable="true" fieldName="first_name" employeeId="${value.emp_no}">${value.first_name}</td>
-                        <td class="birth_date table-light editable" contenteditable="true" fieldName="birth_date" employeeId="${value.emp_no}">${value.birth_date}</td>
-                        <td class="gender table-secondary">${value.gender}</td>
-                        <td class="gender table-secondary">${value.title}</td>
-                        <td class="salary table-secondary">${value.salary}</td>
-                        <td class="dept_name table-secondary">${value.dept_name}</td>                        
+                        <td class="table-secondary">${value.emp_no}</td>                        
+                        <td class="table-light editable" contenteditable="true" fieldName="last_name" employeeId="${value.emp_no}">${value.last_name}</td>
+                        <td class="table-light editable" contenteditable="true" fieldName="first_name" employeeId="${value.emp_no}">${value.first_name}</td>
+                        <td class="table-light editable" contenteditable="true" fieldName="birth_date" employeeId="${value.emp_no}">${value.birth_date}</td>                        
+                        <td class="table-light editable" contenteditable="true" fieldName="hire_date" employeeId="${value.emp_no}">${value.hire_date}</td>
+                        <td class="table-secondary">${value.gender}</td>
+                        <td class="table-secondary">${value.title}</td>
+                        <td class="table-secondary">${value.salary}</td>
+                        <td class="table-secondary">${value.dept_name}</td>     
+                        <td class="table-secondary">${value.to_date}</td>                   
                         <td class="table-light"><button name="btn_delete" class="btn_delete" employeeId="${value.emp_no}">Törlés</button></td>
                     </tr>
                     `);
@@ -133,4 +135,4 @@ function sortArrayDesc(objects, fieldName) {
     return objects.sort((a,b) => (a[fieldName] < b[fieldName]) ? 1 : ((b[fieldName] < a[fieldName]) ? -1 : 0));
 }
 
-//------------- adatok szűrése-------------
+

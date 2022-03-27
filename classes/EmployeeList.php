@@ -1,9 +1,5 @@
 <?php
-
-const LIMIT = '1000';
-
-//------------- csak az aktuális adatok használata-------------
-const MAX_DATE = "'9999-01-01'";
+const LIMIT = 500;
 
 /*
     EmployeeList osztály: dolgozói adatok lekérdézése, módosítása, törlése.
@@ -21,7 +17,7 @@ class EmployeeList extends DB
         $connect = $this->connectDB();
 
         //------------- aktuális dolgozói adatok lekérdezése db-ből -------------
-        $sql = "SELECT emp.emp_no, emp.first_name, emp.last_name, emp.birth_date, emp.gender, tit.title, sal.salary, dep.dept_name 
+        $sql = "SELECT emp.emp_no, emp.first_name, emp.last_name, emp.birth_date, emp.gender, emp.hire_date, tit.title, sal.salary, dep.dept_name, curr_emp.to_date 
                     FROM employees AS emp
                     JOIN current_dept_emp AS curr_emp 
                             ON emp.emp_no = curr_emp.emp_no 
@@ -31,9 +27,8 @@ class EmployeeList extends DB
                         ON sal.emp_no = curr_emp.emp_no
                     JOIN titles AS tit 
                         ON tit.emp_no = curr_emp.emp_no
-                    WHERE curr_emp.to_date =" . MAX_DATE . " 
-                        AND sal.to_date =" . MAX_DATE . "
-                        AND tit.to_date =" . MAX_DATE . "
+                    WHERE curr_emp.to_date = sal.to_date 
+                      AND curr_emp.to_date=tit.to_date
                         LIMIT " . LIMIT;
         $result = $connect->query($sql);
 
@@ -44,9 +39,11 @@ class EmployeeList extends DB
             $employees[$idx]['first_name'] = $array['first_name'];
             $employees[$idx]['last_name'] = $array['last_name'];
             $employees[$idx]['birth_date'] = $array['birth_date'];
+            $employees[$idx]['hire_date'] = $array['hire_date'];
             $employees[$idx]['title'] = $array['title'];
             $employees[$idx]['salary'] = $array['salary'];
             $employees[$idx]['dept_name'] = $array['dept_name'];
+            $employees[$idx]['to_date'] = $array['to_date'];
 
             //------------- ha férfi dolgozó akkor dolgozó neme = "Férfi", egyébként "Nő" -------------
             $employees[$idx]['gender'] = ($array['gender']=='F') ? 'Férfi' : 'Nő';
