@@ -16,7 +16,18 @@ function fetchEmployeeData () {
         success: function (data) {
             //------------- visszakapott dolgozói adatok megjelenítése -------------
             $.each(data, function (index, value) {
-                $('#my-table').append(`<tr><td class="table-primary">${value.first_name}</td></tr>`);
+                $('#my-table')
+                    .append(`
+                    <tr>
+                        <td class="table-primary">${value.emp_no}</td>
+                        <td class="table-primary">${value.first_name}</td>
+                        <td class="table-primary">${value.last_name}</td>
+                        <td class="table-primary">${value.birt_date}</td>
+                        <td class="table-primary">${value.gender}</td>
+                        <td class="table-primary">${value.salary}</td>
+                        <td class="table-primary">${value.dept_name}</td>
+                    </tr>
+                    `);
             })
 
             paginateMaxNumberOfRows();

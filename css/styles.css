@@ -1,9 +1,14 @@
-#data tr {
+/*#data tr {
     display: none;
 }
 
 #data .show-row {
     display: block;
+}*/
+
+table tr td {
+    border: solid black 1px;
+    text-align: center;
 }
 
 

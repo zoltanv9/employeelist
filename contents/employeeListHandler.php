@@ -9,7 +9,7 @@
     //------------- request típus elmentése -------------
     $req = $_REQUEST['req'];
 
-    //------------- adatok lekérdezése, ha request = "select"-----------
+    //------------- adatok lekérdezése, ha request = "fetch"-----------
     if ($req == "fetch") {
         $employees = $employeeList->selectEmployeesData();
 

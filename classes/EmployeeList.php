@@ -1,5 +1,7 @@
 <?php
-const LIMIT = '100';
+
+const LIMIT = '1000';
+const MAX_DATE = "'9999-01-01'";
 
 /*
     EmployeeList osztály: dolgozói adatok lekérdézése, módosítása, törlése.
@@ -13,17 +15,27 @@ class EmployeeList extends DB
     public function selectEmployeesData() {
         $employees = array();
 
-        //------------- adatbázis kapcsolódás meghívása -------------
+        //------------- adatbázishoz kapcsolódás -------------
         $connect = $this->connectDB();
 
-        //------------- adatbázis lekérdezés futtatása -------------
-        $sql = "SELECT * FROM employees LIMIT " . LIMIT;
+        //------------- aktuális dolgozói adatok lekérdezése db-ből -------------
+        $sql = "SELECT emp.emp_no, emp.first_name, emp.last_name, emp.birth_date, emp.gender, sal.salary, dep.dept_name FROM employees AS emp
+                    JOIN current_dept_emp AS curr_emp ON emp.emp_no = curr_emp.emp_no 
+                    JOIN departments AS dep ON curr_emp.dept_no = dep.dept_no
+                    JOIN salaries AS sal ON sal.emp_no = curr_emp.emp_no
+                    WHERE curr_emp.to_date =" . MAX_DATE . " AND sal.to_date =" . MAX_DATE . " LIMIT " . LIMIT;
         $result = $connect->query($sql);
 
-        //------------- adatok elmentése employees tömbbe-------------
+        //------------- lekérdezés eredmény feldolgozása, és visszaadása employees tömbben -------------
         $idx = 0;
         while ($array = $result->fetch_assoc()) {
+            $employees[$idx]['emp_no'] = $array['emp_no'];
             $employees[$idx]['first_name'] = $array['first_name'];
+            $employees[$idx]['last_name'] = $array['last_name'];
+            $employees[$idx]['birth_date'] = $array['birth_date'];
+            $employees[$idx]['gender'] = $array['gender'];
+            $employees[$idx]['salary'] = $array['salary'];
+            $employees[$idx]['dept_name'] = $array['dept_name'];
             $idx ++;
         }
         return $employees;

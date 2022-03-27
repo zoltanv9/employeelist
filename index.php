@@ -18,10 +18,17 @@
     <section class="container py-2 mb-4">
         <div class="row">
             <div class="col-lg-12">
+                <!------------- dolgozói adatok tábla ---------->
                 <table id=data class="table table-hover" style="font-size:large">
                     <thead class="thead-dark">
                     <tr class="show-row">
-                        <th>Keresztnév</th>
+                        <td>No.</td>
+                        <td>Keresztnév</td>
+                        <td>Családnév</td>
+                        <td>Születési dátum</td>
+                        <td>Nem</td>
+                        <td>Fizetés</td>
+                        <td>Osztály</td>
                     </tr>
                     </thead>
                     <tbody id="my-table">
