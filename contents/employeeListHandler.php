@@ -9,12 +9,17 @@
     //------------- request típus elmentése -------------
     $req = $_REQUEST['req'];
 
-    //------------- adatok lekérdezése, ha request = "fetch"-----------
+    /*
+        adatok lekérdezése, ha req = "fetch"
+        adatok frissítése, ha req = "update"
+        dolgozó törlése, ha req = "delete"
+    */
     if ($req == "fetch") {
         $employees = $employeeList->selectEmployeesData();
-
         echo json_encode($employees);
-    } elseif ($req =="update") {
+    } elseif ($req == "update") {
         $employeeList->updateEmployeeData();
+    } elseif ($req == "delete") {
+        $employeeList->deleteEmployee();
     }
 
