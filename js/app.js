@@ -7,8 +7,16 @@ $(function () {
 
 });
 
+//-------------  adat frissítés funkció meghívása szerkesztéskor-------------
+$(document).on('blur', '.editable', function () {
+    let employeeId = this.getAttribute('employeeId');
+    let fieldValue = $(this).text();
+    let fieldName = this.getAttribute('fieldName')
+    updateEmployeeData(employeeId, fieldName, fieldValue);
 
-//------------- dolgozói adatok elkérése ajax funkció-------------
+});
+
+//------------- dolgozói adatok lekérése funkció-------------
 function fetchEmployeeData() {
     $.ajax({
         type: "GET",
@@ -31,9 +39,9 @@ function renderEmployeeDataRows(data) {
             .append(`
                     <tr>
                         <td class="emp_no table-secondary">${value.emp_no}</td>                        
-                        <td class="last_name table-light editable" contenteditable="true" data-idnumber="${value.emp_no}">${value.last_name}</td>
-                        <td class="first_name table-light editable" contenteditable="true" data-idnumber="${value.emp_no}">${value.first_name}</td>
-                        <td class="birth_date table-secondary">${value.birth_date}</td>
+                        <td class="last_name table-light editable" contenteditable="true" fieldName="last_name" employeeId="${value.emp_no}">${value.last_name}</td>
+                        <td class="first_name table-light editable" contenteditable="true" fieldName="first_name" employeeId="${value.emp_no}">${value.first_name}</td>
+                        <td class="birth_date table-light editable" contenteditable="true" fieldName="birth_date" employeeId="${value.emp_no}">${value.birth_date}</td>
                         <td class="gender table-secondary">${value.gender}</td>
                         <td class="gender table-secondary">${value.title}</td>
                         <td class="salary table-secondary">${value.salary}</td>
@@ -68,13 +76,6 @@ function paginateMaxNumberOfRows() {
     });
 }
 
-//-------------  dolgozói adat frissítés funkció meghívása szerkeszthető mező elhagyásakor-------------
-$(document).on('blur', '.editable', function () {
-    let employeeId = this.getAttribute('data-idnumber');
-    let fieldValue = $(this).text();
-    updateEmployeeData(employeeId, "first_name", fieldValue);
-
-});
 
 //------------- dolgozói adat frissítés funkció-------------
 function updateEmployeeData(employeeId, fieldName, fieldValue) {
