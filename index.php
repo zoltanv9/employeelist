@@ -16,18 +16,20 @@
 </head>
 <body>
     <section class="container py-2 mb-4">
+        <h1>Dolgozói adatok</h1>
         <div class="row">
             <div class="col-lg-12">
                 <!------------- dolgozói adatok tábla ---------->
                 <table id=data class="table table-hover" style="font-size:large">
                     <thead class="thead-dark">
                     <tr class="show-row">
-                        <td>No.</td>
-                        <td>Dolgozó neve</td>
-                        <td>Születési dátum</td>
-                        <td>Nem</td>
-                        <td>Fizetés</td>
-                        <td>Osztály</td>
+                        <td class="table-success">No.</td>
+                        <td class="table-success">Dolgozó neve</td>
+                        <td class="table-success">Születési dátum</td>
+                        <td class="table-success">Nem</td>
+                        <td class="table-success">Fizetés</td>
+                        <td class="table-success">Osztály</td>
+                        <td class="table-success" colspan="2">Gombok</td>
                     </tr>
                     </thead>
                     <tbody id="my-table">

@@ -28,12 +28,14 @@ function renderEmployeeDataRows (data) {
         $('#my-table')
             .append(`
                     <tr>
-                        <td class="table-primary">${value.emp_no}</td>                        
-                        <td class="table-primary">${value.full_name}</td>
-                        <td class="table-primary">${value.birth_date}</td>
-                        <td class="table-primary">${value.gender}</td>
-                        <td class="table-primary">${value.salary}</td>
-                        <td class="table-primary">${value.dept_name}</td>
+                        <td class="table-light">${value.emp_no}</td>                        
+                        <td class="table-light">${value.full_name}</td>
+                        <td class="table-light">${value.birth_date}</td>
+                        <td class="table-light">${value.gender}</td>
+                        <td class="table-light">${value.salary}</td>
+                        <td class="table-light">${value.dept_name}</td>
+                        <td class="table-light"><button name="btn_edit" id="btn_edit">Szerkesztés</button></td>
+                        <td class="table-light"><button name="btn_delete" id="btn_delete">Törlés</button></td>
                     </tr>
                     `);
     })
