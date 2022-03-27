@@ -27,7 +27,7 @@
                         <td class="table-success orderingClass" fieldType="last_name">Családnév</td>
                         <td class="table-success orderingClass" fieldType="first_name">Keresztnév</td>
                         <td class="table-success">Születési dátum</td>
-                        <td class="table-success">Munka kezdete</td>
+                        <td class="table-success">Felvétel dátuma</td>
                         <td class="table-success">Nem</td>
                         <td class="table-success orderingClass" fieldType="title">Beosztas</td>
                         <td class="table-success">Fizetés</td>
@@ -37,15 +37,15 @@
                     </tr>
                     <tr class="show-row">
                         <td class="table-light"></td>
-                        <td class="table-light editingClass" fieldType="last_name" contenteditable="true">filter...</td>
-                        <td class="table-light editingClass" fieldType="first_name" contenteditable="true">filter...</td>
+                        <td class="table-light filteringClass" fieldType="last_name" contenteditable="true">filter...</td>
+                        <td class="table-light filteringClass" fieldType="first_name" contenteditable="true">filter...</td>
                         <td class="table-light"></td>
                         <td class="table-light"></td>
                         <td class="table-light"></td>
-                        <td class="table-light  editingClass" fieldType="title" contenteditable="true">filter...</td>
+                        <td class="table-light filteringClass" fieldType="title" contenteditable="true">filter...</td>
                         <td class="table-light"></td>
-                        <td class="table-light editingClass" fieldType="dept_name" contenteditable="true">filter...</td>
-                        <td class="table-light editingClass" fieldType="dept_name" contenteditable="true">filter...</td>
+                        <td class="table-light filteringClass" fieldType="dept_name" contenteditable="true">filter...</td>
+                        <td class="table-light filteringClass" fieldType="dept_name" contenteditable="true">filter...</td>
                         <td class="table-light"></td>
 
                     </tr>

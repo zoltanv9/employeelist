@@ -1,13 +1,16 @@
 const MAX_ROWS_NUMBERS = 20;
 let order ='asc';
+let sortingValue='emp_no';
+let filteringName ='';
+let filteringValue ='';
 
-//------------- dolgozói adatok betöltése funkció meghívása oldal betöltésekor -------------
+//------------- dolgozói adatlekérés oldal betöltésekor -------------
 $(function () {
-    fetchEmployeeData('emp_no');
+    fetchEmployeeData();
 
 });
 
-//-------------  adat frissítés funkció meghívása szerkesztéskor-------------
+//-------------  dolgozói adat frissítése, (szerkeszthető=fehér hátterű) adatmező szerkesztése után-------------
 $(document).on('blur', '.editable', function () {
     let employeeId = this.getAttribute('employeeId');
     let fieldValue = $(this).text();
@@ -16,32 +19,50 @@ $(document).on('blur', '.editable', function () {
 
 });
 
-//-------------  törlési funkció meghívása törlés gombra -------------
+//------------- dolgozó törlése, törlés gombra kattintva -------------
 $(document).on('click', '.btn_delete', function () {
     let answer = confirm("Biztosan ki akarod törölni?");
     if (answer) {
         deleteEmployee(this.getAttribute('employeeId'));
         //-------- elrejtés felületen is --------
         $(this).parent().parent().addClass('hide');
-/*        fetchEmployeeData();*/
     }
 
 });
-//-------------  rendezés fejléc adatokra kattitntva -------------
+//-------------  dolgozók rendezése,(rendezhető) fejlécre kattintva -------------
 $(document).on('click','.orderingClass', function (){
-    fetchEmployeeData(this.getAttribute('fieldType'));
+    sortingValue=this.getAttribute('fieldType');
+    fetchEmployeeData();
 });
 
-//------------- dolgozói adatok lekérése funkció-------------
-function fetchEmployeeData(sortingValue) {
+//-------------  dolgozók szűrése, szűrési adat megadása után -------------
+$(document).on('click','.filteringClass', function (){
+    this.innerHTML='';
+});
+$(document).on('blur', '.filteringClass', function () {
+    console.log(this);
+    filteringName=this.getAttribute('fieldType');
+    filteringValue=this.innerHTML;
+    if (filteringName && filteringValue) {
+        fetchEmployeeData();
+    } else {
+        this.innerHTML='filter...';
+    }
+});
+
+
+//------------- dolgozói adatlekérése funkció-------------
+function fetchEmployeeData() {
     $.ajax({
         type: "GET",
         url: "contents/employeeListHandler.php?req=fetch",
         dataType: "json",
         cache: false,
         success: function (data) {
+            //-------------- adatok szűrése ----------------------------------------
+            data = filterEmployeeList(data,filteringName,filteringValue);
             //-------------- adatok rendezése ----------------------------------------
-            data = order === 'asc' ? sortArrayAsc(data,sortingValue) : sortArrayDesc(data,sortingValue);
+            data = order === 'asc' ? sortEmployeeListAsc(data,sortingValue) : sortEmployeeListDesc(data,sortingValue);
             order = order === 'asc' ? 'desc' : 'asc';
             //------------- dolgozói adatok megjelenítése funkció meghívása-------------
             renderEmployeeDataRows(data);
@@ -51,7 +72,7 @@ function fetchEmployeeData(sortingValue) {
     })
 }
 
-//------------- dolgozói adatsorok megjelenítése funkció-------------
+//------------- adatsorok megjelenítése funkció-------------
 function renderEmployeeDataRows(data) {
     $("#my-table tr").remove();
     $.each(data, function (index, value) {
@@ -100,7 +121,7 @@ function paginateMaxNumberOfRows() {
 }
 
 
-//------------- dolgozói adat frissítés funkció-------------
+//------------- dolgozói adat frissítése funkció-------------
 function updateEmployeeData(employeeId, fieldName, fieldValue) {
     $.ajax({
         method: "POST",
@@ -126,13 +147,17 @@ function deleteEmployee(employeeId) {
         })
 }
 
-//------------- rendezés növekvő sorrendben-------------
-function sortArrayAsc(objects, fieldName) {
+//------------- rendezés növekvő sorrendben funkció-------------
+function sortEmployeeListAsc(objects, fieldName) {
     return objects.sort((a,b) => (a[fieldName] > b[fieldName]) ? 1 : ((b[fieldName] > a[fieldName]) ? -1 : 0));
 }
-//------------- rendezés csökkenő sorrendben-------------
-function sortArrayDesc(objects, fieldName) {
+//------------- rendezés csökkenő sorrendben funkció-------------
+function sortEmployeeListDesc(objects, fieldName) {
     return objects.sort((a,b) => (a[fieldName] < b[fieldName]) ? 1 : ((b[fieldName] < a[fieldName]) ? -1 : 0));
 }
 
+//------------- szűrés ---------------------------------
+function filterEmployeeList(objects,fieldName,fieldValue) {
+        return objects.filter(x => (String(x[fieldName]).includes(fieldValue)));
+}
 
