@@ -23,8 +23,7 @@
                     <thead class="thead-dark">
                     <tr class="show-row">
                         <td>No.</td>
-                        <td>Keresztnév</td>
-                        <td>Családnév</td>
+                        <td>Dolgozó neve</td>
                         <td>Születési dátum</td>
                         <td>Nem</td>
                         <td>Fizetés</td>

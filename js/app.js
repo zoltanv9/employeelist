@@ -6,7 +6,7 @@ $(function () {
     fetchEmployeeData();
 });
 
-//------------- dolgozói adatok lekérdezése kliens oldalról  -------------
+//------------- dolgozói adatok elkérése kliens oldalról  -------------
 function fetchEmployeeData () {
     $.ajax({
         type: "GET",
@@ -15,25 +15,30 @@ function fetchEmployeeData () {
         cache: false,
         success: function (data) {
             //------------- visszakapott dolgozói adatok megjelenítése -------------
-            $.each(data, function (index, value) {
-                $('#my-table')
-                    .append(`
+
+            renderEmployeeDataRows(data);
+            paginateMaxNumberOfRows();
+        }
+    })
+}
+
+//------------- dolgozói adatsorok megjelenítése -------------
+function renderEmployeeDataRows (data) {
+    $.each(data, function (index, value) {
+        $('#my-table')
+            .append(`
                     <tr>
-                        <td class="table-primary">${value.emp_no}</td>
-                        <td class="table-primary">${value.first_name}</td>
-                        <td class="table-primary">${value.last_name}</td>
-                        <td class="table-primary">${value.birt_date}</td>
+                        <td class="table-primary">${value.emp_no}</td>                        
+                        <td class="table-primary">${value.full_name}</td>
+                        <td class="table-primary">${value.birth_date}</td>
                         <td class="table-primary">${value.gender}</td>
                         <td class="table-primary">${value.salary}</td>
                         <td class="table-primary">${value.dept_name}</td>
                     </tr>
                     `);
-            })
-
-            paginateMaxNumberOfRows();
-        }
     })
 }
+
 
 //------------- oldalak lapszámozása -------------
 function paginateMaxNumberOfRows () {

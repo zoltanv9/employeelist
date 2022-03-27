@@ -33,9 +33,15 @@ class EmployeeList extends DB
             $employees[$idx]['first_name'] = $array['first_name'];
             $employees[$idx]['last_name'] = $array['last_name'];
             $employees[$idx]['birth_date'] = $array['birth_date'];
-            $employees[$idx]['gender'] = $array['gender'];
             $employees[$idx]['salary'] = $array['salary'];
             $employees[$idx]['dept_name'] = $array['dept_name'];
+
+            //------------- dolgozó teljes neve = keresztnév + családnév -------------
+            $employees[$idx]['full_name'] = $array['first_name']. " ". $array['last_name'];;
+
+            //------------- ha férfi dolgozó akkor dolgozó neme = "Férfi", egyébként "Nő" -------------
+            $employees[$idx]['gender'] = ($array['gender']=='F') ? 'Férfi' : 'Nő';
+
             $idx ++;
         }
         return $employees;

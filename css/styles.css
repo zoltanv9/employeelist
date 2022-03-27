@@ -5,10 +5,14 @@
 #data .show-row {
     display: block;
 }*/
+section {
+    margin-top: 100px;
+}
 
 table tr td {
     border: solid black 1px;
     text-align: center;
+
 }
 
 
