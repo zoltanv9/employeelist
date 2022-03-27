@@ -19,10 +19,11 @@ class EmployeeList extends DB
         $connect = $this->connectDB();
 
         //------------- aktuális dolgozói adatok lekérdezése db-ből -------------
-        $sql = "SELECT emp.emp_no, emp.first_name, emp.last_name, emp.birth_date, emp.gender, sal.salary, dep.dept_name FROM employees AS emp
+        $sql = "SELECT emp.emp_no, emp.first_name, emp.last_name, emp.birth_date, emp.gender, tit.title, sal.salary, dep.dept_name FROM employees AS emp
                     JOIN current_dept_emp AS curr_emp ON emp.emp_no = curr_emp.emp_no 
                     JOIN departments AS dep ON curr_emp.dept_no = dep.dept_no
                     JOIN salaries AS sal ON sal.emp_no = curr_emp.emp_no
+                    JOIN titles AS tit ON tit.emp_no = curr_emp.emp_no
                     WHERE curr_emp.to_date =" . MAX_DATE . " AND sal.to_date =" . MAX_DATE . " LIMIT " . LIMIT;
         $result = $connect->query($sql);
 
@@ -33,6 +34,7 @@ class EmployeeList extends DB
             $employees[$idx]['first_name'] = $array['first_name'];
             $employees[$idx]['last_name'] = $array['last_name'];
             $employees[$idx]['birth_date'] = $array['birth_date'];
+            $employees[$idx]['title'] = $array['title'];
             $employees[$idx]['salary'] = $array['salary'];
             $employees[$idx]['dept_name'] = $array['dept_name'];
 
@@ -46,5 +48,20 @@ class EmployeeList extends DB
         }
         return $employees;
     }
+
+    //------------- dolgozói adat frissítése metódus-------------
+    function updateEmployeeData () {
+        $connect = $this->connectDB();
+
+        $employeeId = $connect->real_escape_string($_POST['employeeId']);
+        $fieldName = $connect->real_escape_string($_POST['fieldName']);
+        $fieldValue = $connect->real_escape_string($_POST['fieldValue']);
+
+    }
+
+    /*else if ($req == "update") {
+        $employeeList->updateEmployeeData();
+
+    }*/
 
 }

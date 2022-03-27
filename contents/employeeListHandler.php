@@ -14,5 +14,7 @@
         $employees = $employeeList->selectEmployeesData();
 
         echo json_encode($employees);
+    } elseif ($req =="update") {
+        $employeeList->updateEmployeeData();
     }
 

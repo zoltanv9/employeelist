@@ -24,12 +24,14 @@
                     <thead class="thead-dark">
                     <tr class="show-row">
                         <td class="table-success">No.</td>
-                        <td class="table-success">Dolgozó neve</td>
+                        <td class="table-success">Családnév</td>
+                        <td class="table-success">Keresztnév</td>
                         <td class="table-success">Születési dátum</td>
                         <td class="table-success">Nem</td>
+                        <td class="table-success">Beosztas</td>
                         <td class="table-success">Fizetés</td>
                         <td class="table-success">Osztály</td>
-                        <td class="table-success" colspan="2">Gombok</td>
+                        <td class="table-success">Gombok</td>
                     </tr>
                     </thead>
                     <tbody id="my-table">
