@@ -23,14 +23,14 @@
                 <table id=data class="table table-hover" style="font-size:large">
                     <thead class="thead-dark">
                     <tr class="show-row">
-                        <td class="table-success">No.</td>
-                        <td class="table-success">Családnév</td>
-                        <td class="table-success">Keresztnév</td>
-                        <td class="table-success">Születési dátum</td>
+                        <td class="table-success orderingClass" fieldType="emp_no">No.</td>
+                        <td class="table-success orderingClass" fieldType="last_name">Családnév</td>
+                        <td class="table-success orderingClass" fieldType="first_name">Keresztnév</td>
+                        <td class="table-success orderingClass" fieldType="birth_date">Születési dátum</td>
                         <td class="table-success">Nem</td>
-                        <td class="table-success">Beosztas</td>
-                        <td class="table-success">Fizetés</td>
-                        <td class="table-success">Osztály</td>
+                        <td class="table-success orderingClass" fieldType="title">Beosztas</td>
+                        <td class="table-success orderingClass" fieldType="salary">Fizetés</td>
+                        <td class="table-success orderingClass" fieldType="dept_name">Osztály</td>
                         <td class="table-success">Gombok</td>
                     </tr>
                     </thead>

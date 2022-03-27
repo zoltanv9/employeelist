@@ -1,9 +1,9 @@
 const MAX_ROWS_NUMBERS = 20;
-
+let order ='asc';
 
 //------------- dolgozói adatok betöltése funkció meghívása oldal betöltésekor -------------
 $(function () {
-    fetchEmployeeData();
+    fetchEmployeeData('emp_no');
 
 });
 
@@ -23,18 +23,26 @@ $(document).on('click', '.btn_delete', function () {
         deleteEmployee(this.getAttribute('employeeId'));
         //-------- elrejtés felületen is --------
         $(this).parent().parent().addClass('hide');
+/*        fetchEmployeeData();*/
     }
 
 });
+//-------------  rendezés fejléc adatokra kattitntva -------------
+$(document).on('click','.orderingClass', function (){
+    fetchEmployeeData(this.getAttribute('fieldType'));
+});
 
 //------------- dolgozói adatok lekérése funkció-------------
-function fetchEmployeeData() {
+function fetchEmployeeData(sortingValue) {
     $.ajax({
         type: "GET",
         url: "contents/employeeListHandler.php?req=fetch",
         dataType: "json",
         cache: false,
         success: function (data) {
+            //-------------- adatok rendezése ----------------------------------------
+            data = order === 'asc' ? sortArrayAsc(data,sortingValue) : sortArrayDesc(data,sortingValue);
+            order = order === 'asc' ? 'desc' : 'asc';
             //------------- dolgozói adatok megjelenítése funkció meghívása-------------
             renderEmployeeDataRows(data);
             //------------- oldalak lapszámozása funkció meghívása-------------
@@ -45,6 +53,7 @@ function fetchEmployeeData() {
 
 //------------- dolgozói adatsorok megjelenítése funkció-------------
 function renderEmployeeDataRows(data) {
+    $("#my-table tr").remove();
     $.each(data, function (index, value) {
         $('#my-table')
             .append(`
@@ -66,6 +75,7 @@ function renderEmployeeDataRows(data) {
 
 //------------- oldalak lapszámozása funkció-------------
 function paginateMaxNumberOfRows() {
+    $("#nav").remove();
     $('#data').after('<div id="nav"></div>');
     let rowsShown = MAX_ROWS_NUMBERS;
     let rowsTotal = $('#data tbody tr').length;
@@ -113,3 +123,14 @@ function deleteEmployee(employeeId) {
             }
         })
 }
+
+//------------- rendezés növekvő sorrendben-------------
+function sortArrayAsc(objects, fieldName) {
+    return objects.sort((a,b) => (a[fieldName] > b[fieldName]) ? 1 : ((b[fieldName] > a[fieldName]) ? -1 : 0));
+}
+//------------- rendezés csökkenő sorrendben-------------
+function sortArrayDesc(objects, fieldName) {
+    return objects.sort((a,b) => (a[fieldName] < b[fieldName]) ? 1 : ((b[fieldName] < a[fieldName]) ? -1 : 0));
+}
+
+//------------- adatok szűrése-------------
