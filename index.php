@@ -18,9 +18,9 @@
     <section class="container py-2 mb-4">
         <div class="row">
             <div class="col-lg-12">
-                <table class="table table-hover" style="font-size:large">
+                <table id=data class="table table-hover" style="font-size:large">
                     <thead class="thead-dark">
-                    <tr>
+                    <tr class="show-row">
                         <th>Keresztnév</th>
                     </tr>
                     </thead>

@@ -10,7 +10,7 @@
     $req = $_REQUEST['req'];
 
     //------------- adatok lekérdezése, ha request = "select"-----------
-    if ($req == "select") {
+    if ($req == "fetch") {
         $employees = $employeeList->selectEmployeesData();
 
         echo json_encode($employees);

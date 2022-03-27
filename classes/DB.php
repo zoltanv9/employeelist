@@ -15,7 +15,7 @@ class DB {
     private $database = DB_NAME;
 
 
-    //------------- kapcsolódás adatbázishoz metódus -------------
+    //------------- adatbázis kapcsolódás-------------
     public function connectDB () {
 
         $conn= new mysqli($this->serverName,$this->userName,$this->password,$this->database);

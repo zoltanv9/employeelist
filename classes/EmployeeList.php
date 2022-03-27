@@ -9,18 +9,18 @@ const LIMIT = '100';
 
 class EmployeeList extends DB
 {
-    //------------- dolgozói adatok lekérdezés metódus-------------
+    //------------- dolgozói adatok lekérdezés-------------
     public function selectEmployeesData() {
         $employees = array();
 
-        //------------- adatbázishoz kapcsolódás -------------
+        //------------- adatbázis kapcsolódás meghívása -------------
         $connect = $this->connectDB();
 
-        //------------- adatbázisból adatok lekérdezése -------------
+        //------------- adatbázis lekérdezés futtatása -------------
         $sql = "SELECT * FROM employees LIMIT " . LIMIT;
         $result = $connect->query($sql);
 
-        //------------- adatok elmentés employees tömbbe-------------
+        //------------- adatok elmentése employees tömbbe-------------
         $idx = 0;
         while ($array = $result->fetch_assoc()) {
             $employees[$idx]['first_name'] = $array['first_name'];

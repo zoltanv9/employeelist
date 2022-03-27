@@ -1,0 +1,9 @@
+#data tr {
+    display: none;
+}
+
+#data .show-row {
+    display: block;
+}
+
+
