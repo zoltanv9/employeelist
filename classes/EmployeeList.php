@@ -11,11 +11,11 @@ const MAX_DATE = "'9999-01-01'";
 
 class EmployeeList extends DB
 {
-    //------------- dolgozói adatok lekérdezés-------------
+    //------------- dolgozói adatok lekérdezése metódus-------------
     public function selectEmployeesData() {
         $employees = array();
 
-        //------------- adatbázishoz kapcsolódás -------------
+        //------------- adatbázishoz kapcsolódás metódus meghívása -------------
         $connect = $this->connectDB();
 
         //------------- aktuális dolgozói adatok lekérdezése db-ből -------------
@@ -38,14 +38,12 @@ class EmployeeList extends DB
             $employees[$idx]['salary'] = $array['salary'];
             $employees[$idx]['dept_name'] = $array['dept_name'];
 
-            //------------- dolgozó teljes neve = keresztnév + családnév -------------
-            $employees[$idx]['full_name'] = $array['first_name']. " ". $array['last_name'];;
-
             //------------- ha férfi dolgozó akkor dolgozó neme = "Férfi", egyébként "Nő" -------------
             $employees[$idx]['gender'] = ($array['gender']=='F') ? 'Férfi' : 'Nő';
 
             $idx ++;
         }
+
         return $employees;
     }
 
@@ -53,9 +51,21 @@ class EmployeeList extends DB
     function updateEmployeeData () {
         $connect = $this->connectDB();
 
-        $employeeId = $connect->real_escape_string($_POST['employeeId']);
-        $fieldName = $connect->real_escape_string($_POST['fieldName']);
-        $fieldValue = $connect->real_escape_string($_POST['fieldValue']);
+        if (isset($_POST['employeeId'])&&isset($_POST['fieldName'])&&isset($_POST['fieldValue'])) {
+            $employeeId = $connect->real_escape_string($_POST['employeeId']);
+            $fieldName = $connect->real_escape_string($_POST['fieldName']);
+            $fieldValue = $connect->real_escape_string($_POST['fieldValue']);
+
+            $query = "UPDATE employees SET " .$fieldName. "= ? WHERE emp_no = ?";
+            $sql = $connect->prepare($query);
+            $sql->bind_param("ss", $fieldValue, $employeeId);
+            if (!$sql->execute()) {
+                echo'<script>alert("Sikertelen frissítés")</script>';
+            }
+            else {
+                echo'<script>alert("Sikeres frissítés")</script>';
+            }
+        }
 
     }
 
