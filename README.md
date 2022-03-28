@@ -13,7 +13,9 @@
 
 ## Install
 Install DB: https://dev.mysql.com/doc/employee/en/ <br /><br />
-Checkout Project: https://github.com/zoltanv9/employeelist.git
-
+Checkout this project: 
+```
+$ git clone https://github.com/zoltanv9/employeelist.git
+```
 ## Plugins
 jQuery pagination plugin: https://github.com/josecebe/twbs-pagination
