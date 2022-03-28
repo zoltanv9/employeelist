@@ -24,7 +24,7 @@
                 <table id=data class="table table-hover" style="font-size:large">
                     <thead class="thead-dark">
                     <tr class="show-row">
-                        <!------------- fejléc megjelenítés és rendezhető adatok felszerelése rendezési osztállyal ---------->
+                        <!------------- fejléc megjelenítése és rendezhető mezők felszerelése rendezési osztállyal ---------->
                         <td class="table-success orderingClass" fieldType="emp_no">No.</td>
                         <td class="table-success orderingClass" fieldType="last_name">Családnév</td>
                         <td class="table-success orderingClass" fieldType="first_name">Keresztnév</td>
@@ -38,7 +38,7 @@
                         <td class="table-success">Gombok</td>
                     </tr>
                     <tr class="show-row">
-                        <!-------------  keresési sor megjelenítése és szűrhető adatok felszerelése szűrési osztállyal ---------->
+                        <!-------------  keresési sor megjelenítése és szűrési mezők felszerelése szűrési osztállyal ---------->
                         <td class="table-light"></td>
                         <td class="table-light filteringClass" fieldType="last_name" contenteditable="true">filter...</td>
                         <td class="table-light filteringClass" fieldType="first_name" contenteditable="true">filter...</td>

@@ -1,5 +1,4 @@
 //----------------alap értékek beállítása  -------------
-const MAX_ROWS_NUMBERS = 20;
 let order ='asc';
 let sortingValue='emp_no';
 let filteringName ='';
@@ -11,7 +10,7 @@ $(function () {
     fetchEmployeeData();
 });
 
-//------------- oldal lapszámozása plugin beállítása -------------
+//------------- oldal lapszámozás plugin beállítása -------------
 $(function () {
     window.pagObj = $('#pagination').twbsPagination({
         totalPages: 500,
@@ -20,13 +19,11 @@ $(function () {
             pageNumber = page;
             fetchEmployeeData();
         }
-    }).on('page', function (event, page) {
-        console.info(page + ' (from event listening)');
     });
 });
 
 
-//-------------  dolgozói adat módosítása, 'editable' osztállyal rendelkező mező szerkesztése után-------------
+//-------------  dolgozói adat módosítása, 'editable' mező szerkesztése után-------------
 $(document).on('blur', '.editable', function () {
     let employeeId = this.getAttribute('employeeId');
     let fieldValue = $(this).text();
@@ -45,25 +42,22 @@ $(document).on('click', '.btn_delete', function () {
     }
 
 });
-//-------------  dolgozók rendezése,'orderingClass' osztállyal rendelkező fejlécre kattintva -------------
+//-------------  dolgozók rendezése,'orderingClass' fejlécre kattintva -------------
 $(document).on('click','.orderingClass', function (){
     sortingValue=this.getAttribute('fieldType');
     fetchEmployeeData();
 });
 
-//-------------  'filter...' szöveg eltávolítása 'filteringClass' osztállyal rendelkező fejléc mező mezőre kattintva-------------
+//-------------  'filter...' szöveg eltávolítása 'filteringClass' mezőre kattintva-------------
 $(document).on('click','.filteringClass', function (){
     this.innerHTML='';
 });
-//-------------  dolgozók szűrése, 'filteringClass' osztállyal rendelkező fejléc mező szerkesztése után -------------
-$(document).on('blur', '.filteringClass', function () {
-    console.log(this);
+//-------------  dolgozók szűrése, 'filteringClass' mezőbe gépeléskor -------------
+$(document).on('keyup', '.filteringClass', function () {
     filteringName=this.getAttribute('fieldType');
     filteringValue=this.innerHTML;
     if (filteringName && filteringValue) {
         fetchEmployeeData();
-    } else {
-        this.innerHTML='filter...';
     }
 });
 
@@ -72,6 +66,7 @@ $(document).on('blur', '.filteringClass', function () {
 function fetchEmployeeData() {
     $.ajax({
         type: "GET",
+        //--------- oldalszám (pageNumber) és kérés típus (req) elküldése --------
         url: "contents/employeeListHandler.php?req=fetch",
         data: {pageNumber: pageNumber},
         dataType: "json",
@@ -95,7 +90,7 @@ function renderEmployeeDataRows(data) {
         $('#my-table')
             .append(`
                     <tr>
-                        <!------------- adatok megjelenítése és módosítható mezők felszerelése 'editable' osztállyal------------->
+                        <!------------- adatok megjelenítése és módosítható mezők felszerelése ------------->
                         <td class="table-secondary">${value.emp_no}</td>                        
                         <td class="table-light editable" contenteditable="true" fieldName="last_name" employeeId="${value.emp_no}">${value.last_name}</td>
                         <td class="table-light editable" contenteditable="true" fieldName="first_name" employeeId="${value.emp_no}">${value.first_name}</td>
@@ -149,7 +144,7 @@ function sortEmployeeListDesc(objects, fieldName) {
     return objects.sort((a,b) => (a[fieldName] < b[fieldName]) ? 1 : ((b[fieldName] < a[fieldName]) ? -1 : 0));
 }
 
-//------------- dolgozói object tömb szűrése funkció---------------------------------
+//------------- dolgozói adatlista szűrése funkció---------------------------------
 function filterEmployeeList(objects,fieldName,fieldValue) {
         return objects.filter(x => (String(x[fieldName]).includes(fieldValue)));
 }
