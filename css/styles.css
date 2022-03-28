@@ -19,3 +19,7 @@ table tr td {
 .hide {
     display: none;
 }
+
+.orderingClass {
+    cursor: pointer;
+}

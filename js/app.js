@@ -4,12 +4,27 @@ let order ='asc';
 let sortingValue='emp_no';
 let filteringName ='';
 let filteringValue ='';
+let pageNumber = 1;
 
 //------------- dolgozói adatlekérés oldal betöltésekor -------------
 $(function () {
     fetchEmployeeData();
-
 });
+
+//------------- oldal lapszámozása plugin beállítása -------------
+$(function () {
+    window.pagObj = $('#pagination').twbsPagination({
+        totalPages: 500,
+        visiblePages: 5,
+        onPageClick: function (event, page) {
+            pageNumber = page;
+            fetchEmployeeData();
+        }
+    }).on('page', function (event, page) {
+        console.info(page + ' (from event listening)');
+    });
+});
+
 
 //-------------  dolgozói adat módosítása, 'editable' osztállyal rendelkező mező szerkesztése után-------------
 $(document).on('blur', '.editable', function () {
@@ -58,23 +73,22 @@ function fetchEmployeeData() {
     $.ajax({
         type: "GET",
         url: "contents/employeeListHandler.php?req=fetch",
+        data: {pageNumber: pageNumber},
         dataType: "json",
         cache: false,
         success: function (data) {
-            //-------------- adatok szűrése ----------------------------------------
+            //-------------- adatok szűrése --------------
             data = filterEmployeeList(data,filteringName,filteringValue);
-            //-------------- adatok rendezése ----------------------------------------
+            //-------------- adatok rendezése ------------
             data = order === 'asc' ? sortEmployeeListAsc(data,sortingValue) : sortEmployeeListDesc(data,sortingValue);
             order = order === 'asc' ? 'desc' : 'asc';
-            //------------- dolgozói adatok megjelenítése funkció meghívása-------------
+            //------------- dolgozói adatok megjelenítése-
             renderEmployeeDataRows(data);
-            //------------- oldalak lapszámozása funkció meghívása-------------
-            paginateMaxNumberOfRows();
         }
     })
 }
 
-//------------- adatsorok megjelenítése funkció-------------
+//------------- dolgozói adatsorok megjelenítése funkció-------------
 function renderEmployeeDataRows(data) {
     $("#my-table tr").remove();
     $.each(data, function (index, value) {
@@ -99,32 +113,8 @@ function renderEmployeeDataRows(data) {
 }
 
 
-//------------- oldalak lapszámozása funkció-------------
-function paginateMaxNumberOfRows() {
-    $("#nav").remove();
-    $('#data').after('<div id="nav"></div>');
-    let rowsShown = MAX_ROWS_NUMBERS;
-    let rowsTotal = $('#data tbody tr').length;
-    let numPages = rowsTotal / rowsShown;
-    for (let i = 0; i < numPages; i++) {
-        let pageNum = i + 1;
-        $('#nav').append('<a href="#" rel="' + i + '">' + pageNum + '</a> ');
-    }
-    $('#data tbody tr').filter(':not(.hide)').hide();
-    $('#data tbody tr').filter(':not(.hide)').slice(0, rowsShown).show();
-    $('#nav a:first').addClass('active');
-    $('#nav a').bind('click', function () {
-        $('#nav a').removeClass('active');
-        $(this).addClass('active');
-        let currPage = $(this).attr('rel');
-        let startItem = currPage * rowsShown;
-        let endItem = startItem + rowsShown;
-        $('#data tbody tr').filter(':not(.hide)').css('opacity', '0.0').hide().slice(startItem, endItem).css('display', 'table-row').animate({opacity: 1}, 300);
-    });
-}
 
-
-//------------- dolgozói adat frissítése funkció-------------
+//------------- dolgozói adat módosítás funkció-------------
 function updateEmployeeData(employeeId, fieldName, fieldValue) {
     $.ajax({
         method: "POST",

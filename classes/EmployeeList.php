@@ -1,9 +1,11 @@
 <?php
-const LIMIT = 500;
+
+const LIMIT_PER_PAGE = 20;
+
 
 /*
     EmployeeList osztály: dolgozói adatok lekérdézése, módosítása, törlése.
-    Adatbázis kapcsolódás öröklése DB osztályból.
+    Adatbázis kapcsolódás metódus öröklése DB osztályból.
  */
 
 
@@ -12,11 +14,9 @@ class EmployeeList extends DB
     //------------- dolgozói adatok lekérdezése metódus-------------
     public function selectEmployeesData() {
         $employees = array();
-
-        //------------- adatbázishoz kapcsolódás meghívása -------------
         $connect = $this->connectDB();
 
-        //------------- aktuális dolgozói adatok lekérdezése db-ből -------------
+        //------------- aktuális dolgozói adatok lekérdezése -------------
         $sql = "SELECT emp.emp_no, emp.first_name, emp.last_name, emp.birth_date, emp.gender, emp.hire_date, tit.title, sal.salary, dep.dept_name, curr_emp.to_date 
                     FROM employees AS emp
                     JOIN current_dept_emp AS curr_emp 
@@ -28,11 +28,20 @@ class EmployeeList extends DB
                     JOIN titles AS tit 
                         ON tit.emp_no = curr_emp.emp_no
                     WHERE curr_emp.to_date = sal.to_date 
-                      AND curr_emp.to_date=tit.to_date
-                        LIMIT " . LIMIT;
+                      AND curr_emp.to_date=tit.to_date";
+
+        //------------- csak az adott oldalszám adatait kérjük le-------------
+        if($_GET['pageNumber'] > 1) {
+            $start = (($_GET['pageNumber'] -1 ) * LIMIT_PER_PAGE);
+            $page = $_GET['pageNumber'];
+        } else {
+            $start = 0;
+        }
+        $sql = $sql . ' LIMIT ' . $start . ', ' . LIMIT_PER_PAGE;
+
         $result = $connect->query($sql);
 
-        //------------- lekérdezés eredmény feldolgozása, és visszaadása employees tömbben -------------
+        //------------- lekérdezési eredmény feldolgozása -------------
         $idx = 0;
         while ($array = $result->fetch_assoc()) {
             $employees[$idx]['emp_no'] = $array['emp_no'];
@@ -89,5 +98,6 @@ class EmployeeList extends DB
             }
         }
     }
+
 
 }
