@@ -1,3 +1,4 @@
+//----------------alap értékek beállítása  -------------
 const MAX_ROWS_NUMBERS = 20;
 let order ='asc';
 let sortingValue='emp_no';
@@ -10,7 +11,7 @@ $(function () {
 
 });
 
-//-------------  dolgozói adat frissítése, (szerkeszthető=fehér hátterű) adatmező szerkesztése után-------------
+//-------------  dolgozói adat módosítása, 'editable' osztállyal rendelkező mező szerkesztése után-------------
 $(document).on('blur', '.editable', function () {
     let employeeId = this.getAttribute('employeeId');
     let fieldValue = $(this).text();
@@ -29,16 +30,17 @@ $(document).on('click', '.btn_delete', function () {
     }
 
 });
-//-------------  dolgozók rendezése,(rendezhető) fejlécre kattintva -------------
+//-------------  dolgozók rendezése,'orderingClass' osztállyal rendelkező fejlécre kattintva -------------
 $(document).on('click','.orderingClass', function (){
     sortingValue=this.getAttribute('fieldType');
     fetchEmployeeData();
 });
 
-//-------------  dolgozók szűrése, szűrési adat megadása után -------------
+//-------------  'filter...' szöveg eltávolítása 'filteringClass' osztállyal rendelkező fejléc mező mezőre kattintva-------------
 $(document).on('click','.filteringClass', function (){
     this.innerHTML='';
 });
+//-------------  dolgozók szűrése, 'filteringClass' osztállyal rendelkező fejléc mező szerkesztése után -------------
 $(document).on('blur', '.filteringClass', function () {
     console.log(this);
     filteringName=this.getAttribute('fieldType');
@@ -79,6 +81,7 @@ function renderEmployeeDataRows(data) {
         $('#my-table')
             .append(`
                     <tr>
+                        <!------------- adatok megjelenítése és módosítható mezők felszerelése 'editable' osztállyal------------->
                         <td class="table-secondary">${value.emp_no}</td>                        
                         <td class="table-light editable" contenteditable="true" fieldName="last_name" employeeId="${value.emp_no}">${value.last_name}</td>
                         <td class="table-light editable" contenteditable="true" fieldName="first_name" employeeId="${value.emp_no}">${value.first_name}</td>
@@ -156,7 +159,7 @@ function sortEmployeeListDesc(objects, fieldName) {
     return objects.sort((a,b) => (a[fieldName] < b[fieldName]) ? 1 : ((b[fieldName] < a[fieldName]) ? -1 : 0));
 }
 
-//------------- szűrés ---------------------------------
+//------------- dolgozói object tömb szűrése funkció---------------------------------
 function filterEmployeeList(objects,fieldName,fieldValue) {
         return objects.filter(x => (String(x[fieldName]).includes(fieldValue)));
 }

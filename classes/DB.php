@@ -8,7 +8,7 @@ const DB_NAME = 'employees';
 
 class DB {
 
-    //------------- adatbázis tulajdonságok beállítása -------------
+    //------------- adatbázis paraméterek beállítása -------------
     private $serverName = HOST_NAME;
     private $userName = USER_NAME;
     private $password = PASSWORD;

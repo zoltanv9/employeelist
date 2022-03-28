@@ -13,7 +13,7 @@ class EmployeeList extends DB
     public function selectEmployeesData() {
         $employees = array();
 
-        //------------- adatbázishoz kapcsolódás metódus meghívása -------------
+        //------------- adatbázishoz kapcsolódás meghívása -------------
         $connect = $this->connectDB();
 
         //------------- aktuális dolgozói adatok lekérdezése db-ből -------------
@@ -89,12 +89,5 @@ class EmployeeList extends DB
             }
         }
     }
-
-
-
-    /*else if ($req == "update") {
-        $employeeList->updateEmployeeData();
-
-    }*/
 
 }
