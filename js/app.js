@@ -67,7 +67,7 @@ function fetchEmployeeData() {
     $.ajax({
         type: "GET",
         //--------- oldalszám (pageNumber) és kérés típus (req) elküldése --------
-        url: "contents/employeeListHandler.php?req=fetch",
+        url: "handlers/employeeListHandler.php?req=fetch",
         data: {pageNumber: pageNumber},
         dataType: "json",
         cache: false,
@@ -113,7 +113,7 @@ function renderEmployeeDataRows(data) {
 function updateEmployeeData(employeeId, fieldName, fieldValue) {
     $.ajax({
         method: "POST",
-        url: "contents/employeeListHandler.php?req=update",
+        url: "handlers/employeeListHandler.php?req=update",
         data: {employeeId: employeeId, fieldName: fieldName, fieldValue: fieldValue},
         dataType: "text",
         success: function (data) {
@@ -126,7 +126,7 @@ function updateEmployeeData(employeeId, fieldName, fieldValue) {
 function deleteEmployee(employeeId) {
         $.ajax({
             method: "POST",
-            url: "contents/employeeListHandler.php?req=delete",
+            url: "handlers/employeeListHandler.php?req=delete",
             data: {employeeId: employeeId},
             dataType: "text",
             success: function (data) {

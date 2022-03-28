@@ -6,7 +6,7 @@
     //------------- dolgozói lista példányosítása ----------
     $employeeList = new EmployeeList();
 
-    //------------- request típus elmentése -------------
+    //------------- kérés típus elmentése -------------
     $req = $_REQUEST['req'];
 
     /*
